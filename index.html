@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Login with audio recorders</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+    
+  </head>
+  <body>
+    <h1>Login with Audio recorder</h1>
+	<h3>Input phone number here:</h3>
+	<input id="inputNumber" placeholder="Phone Number">
+	<h3>Start recording here:</h3>
+    <div id="controls">
+		<button id="recordButton">Record</button>
+		<button id="pauseButton" disabled>Pause</button>
+		<button id="stopButton" disabled>Stop</button>
+    </div>
+    <div id="formats">Format: start recording to see sample rate</div>
+  	<p><strong>Recordings:</strong></p>
+  	<ol id="recordingsList"></ol>
+	<button id="submitButton">Submit</button>
+    <!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
+	<script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
+  	<script src="script.js"></script>
+  </body>
+</html>
