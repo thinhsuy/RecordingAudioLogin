@@ -15,12 +15,26 @@ a:visited {
 }
 
 body {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
     line-height: 1.5;
     font-family: sans-serif;
     word-wrap: break-word;
     overflow-wrap: break-word;
     color: black;
     margin: 2em;
+    overflow: hidden;
+}
+
+.container{
+    display: relative;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    height: fit-content;
+    z-index: 1;
 }
 
 h1 {
@@ -49,9 +63,11 @@ red {
     align-items: center;
     margin-top: 2rem;
     width: 28em;
+    z-index: 1;
 }
 
 #inputNumber {
+    position: relative;
     height: 3rem;
     width: 27.5rem;
 }
@@ -64,6 +80,7 @@ i{
 }
 
 button {
+    position: relative;
     flex-grow: 1;
     height: 3rem;
     width: 10rem;
@@ -124,4 +141,58 @@ li {
 
 #recordingsList {
     max-width: 28em;
+}
+
+.disabledContainer {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+.popUpContainer{
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 5px 15px black;
+    border-radius: 50px;
+    z-index: 1000;
+    width: 40rem;
+    height: 20rem;
+    left: 50%;
+    top: 0;
+    z-index: 10;
+    visibility: hidden;
+    transition: all 0.4s;
+    transform: translate(-50%, -50%) scale(0.1);
+}
+
+.open-popup{
+    visibility: visible;
+    top: 40%;
+    left: 20%;
+    transform: translate(50%, -50%) scale(1);
+}
+
+#checkIcon{
+    font-size: 10rem;
+    position: relative;
+    left: 37%;
+    top: -25%;
+}
+
+.helloUser{
+    position: relative;
+    width: 100%;
+    font-size: 2rem;
+    top:-3rem;
+    text-align: center;
+}
+
+.btnConfirm{
+    position: relative;
+    background-color: green;
+    box-shadow: 0 5px 15px black;
+    border-radius: 15px;
+    width: 10rem;
+    height: 4rem;
+    top:1rem;
+    margin: 0.5rem;
 }
