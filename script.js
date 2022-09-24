@@ -4,6 +4,7 @@ var rec;
 var input;
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioContext
+var isLogin = true;
 
 var recordButton = document.getElementById("recordButton");
 var stopButton = document.getElementById("stopButton");
@@ -83,6 +84,7 @@ function createDownloadLink(blob) {
 
 /* UPLOADING FILE TO THE SERVER, CHANGE THE SITE IN CASE */
 // this function will send a list of records
+// the package have architecture is that a list: [[fileOfAudio, nameOfAudio], phoneNumber]
 function UploadToServer() {
 	if (listBlobs.length==0){
 		console.log("Audio list is empty");
@@ -102,10 +104,24 @@ function UploadToServer() {
             }
         };
         var fd = new FormData();
-        fd.append("audio_data", listBlobs, "list of records");
+		if (isLogin==true) action="login";
+		else action="register"
+        fd.append("audio_data", [listBlobs, pn], action);
         //post to the server site "server.php"
         xhr.open("POST","server.php",true);
-        xhr.send(pn)
         xhr.send(fd);
 	})
+}
+
+let popup = document.querySelector('.popUpContainer');
+let container = document.querySelector('.container');
+
+function openPopup(){
+	container.classList.add("disabledContainer");
+	popup.classList.add("open-popup");
+}
+
+function closePopup(){
+	container.classList.remove("disabledContainer");
+	popup.classList.remove("open-popup");
 }
