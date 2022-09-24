@@ -7,14 +7,12 @@ var audioContext
 
 var recordButton = document.getElementById("recordButton");
 var stopButton = document.getElementById("stopButton");
-var pauseButton = document.getElementById("pauseButton");
 var submitButton = document.getElementById("submitButton");
-
+var listBlobs = []
 
 //add events to those 2 buttons
 recordButton.addEventListener("click", startRecording);
 stopButton.addEventListener("click", stopRecording);
-pauseButton.addEventListener("click", pauseRecording);
 submitButton.addEventListener("click", UploadToServer);
 
 function startRecording() {
@@ -22,7 +20,6 @@ function startRecording() {
     var constraints = { audio: true, video:false }
 	recordButton.disabled = true;
 	stopButton.disabled = false;
-	pauseButton.disabled = false
 
 	navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
 		audioContext = new AudioContext();
@@ -40,21 +37,7 @@ function startRecording() {
 	  	//enable the record button if getUserMedia() fails
     	recordButton.disabled = false;
     	stopButton.disabled = true;
-    	pauseButton.disabled = true
 	});
-}
-
-function pauseRecording(){
-	console.log("pauseButton clicked rec.recording=",rec.recording );
-	if (rec.recording){
-		//pause
-		rec.stop();
-		pauseButton.innerHTML="Resume";
-	}else{
-		//resume
-		rec.record()
-		pauseButton.innerHTML="Pause";
-	}
 }
 
 function stopRecording() {
@@ -62,9 +45,6 @@ function stopRecording() {
 	//disable the stop button, enable the record too allow for new recordings
 	stopButton.disabled = true;
 	recordButton.disabled = false;
-	pauseButton.disabled = true;
-	//reset button just in case the recording is stopped while paused
-	pauseButton.innerHTML="Pause";
 	//tell the recorder to stop the recording
 	rec.stop();
 	//stop microphone access
@@ -85,7 +65,7 @@ function createDownloadLink(blob) {
 	au.src = url;
 	//save to disk link
 	link.href = url;
-	link.download = filename+".wav"; //download forces the browser to donwload the file using the  filename
+	link.download = filename+".wav"; 
 	link.innerHTML = "download sound?";
 	//add the new audio element to li
 	li.appendChild(au);
@@ -95,11 +75,20 @@ function createDownloadLink(blob) {
 	li.appendChild(link);
 	//add the li element to the ol
 	recordingsList.appendChild(li);
+	//append to global list of records
+	var name = "record " + listBlobs.length;
+	listBlobs.push([blob, name]);
 }
 
 
 /* UPLOADING FILE TO THE SERVER, CHANGE THE SITE IN CASE */
+// this function will send a list of records
 function UploadToServer() {
+	if (listBlobs.length==0){
+		console.log("Audio list is empty");
+		return
+	}
+	console.log(listBlobs);
     console.log("Trying upload to server...");
     var pn = document.querySelector('#inputNumber');
     var upload = document.createElement('a');
@@ -112,8 +101,8 @@ function UploadToServer() {
                 console.log("Server returned: ",e.target.responseText);
             }
         };
-        var fd=new FormData();
-        fd.append("audio_data",blob, filename);
+        var fd = new FormData();
+        fd.append("audio_data", listBlobs, "list of records");
         //post to the server site "server.php"
         xhr.open("POST","server.php",true);
         xhr.send(pn)
