@@ -17,8 +17,8 @@ stopButton.addEventListener("click", stopRecording);
 submitButton.addEventListener("click", UploadToServer);
 
 //add events to recognize those 2 buttons
-document.querySelector('.btnLogin').onclick=()=>{isLogin=true;}
-document.querySelector('.btnRegister').onclick=()=>{isLogin=false;}
+// document.querySelector('.btnLogin').onclick=()=>{isLogin=true;}
+// document.querySelector('.btnRegister').onclick=()=>{isLogin=false;}
 
 function startRecording() {
 	console.log("recordButton clicked");
