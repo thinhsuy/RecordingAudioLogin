@@ -1,28 +1,47 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Login with audio recorders</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" type="text/css" href="style.css">
-    
-  </head>
-  <body>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Login with audio recorders</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+
+<body>
+  <div class="container">
     <h1>Login with Audio recorder</h1>
-	<h3>Input phone number here:</h3>
-	<input id="inputNumber" placeholder="Phone Number">
-	<h3>Start recording here:</h3>
-  <div id="controls">
-    <button id="recordButton"><i style="left:1.3rem" class="material-icons">micro</i></button>
-    <button id="stopButton" disabled><i class="material-icons">stop</i></button>
+    <h3>Input phone number here:</h3>
+    <input id="inputNumber" placeholder="Phone Number">
+    <h3>Start recording here:</h3>
+    <div id="controls">
+      <button id="recordButton"><i style="left:1.3rem" class="material-icons">micro</i></button>
+      <button id="stopButton" disabled><i class="material-icons">stop</i></button>
+    </div>
+    <div id="formats">Format: start recording to see sample rate</div>
+    <p><strong>Recordings:</strong></p>
+    <ol id="recordingsList"></ol>
+    <div style="display: flex">
+      <button id="submitButton">Submit</button>
+      <button id="regisButton" onclick="openPopup()">Assign a new account</button>
+    </div>
   </div>
-  <div id="formats">Format: start recording to see sample rate</div>
-  <p><strong>Recordings:</strong></p>
-  <ol id="recordingsList"></ol>
-	<button id="submitButton">Submit</button>
-    <!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
-	<script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
-  	<script src="script.js"></script>
-  </body>
+  <br>
+  
+  <div class="popUpContainer">
+    <i class="material-icons" id="checkIcon" style="color: green">check_circle</i>
+    <h2 class="helloUser">Hello User, let join us</h2>
+    <div style="display: flex; width: fit-content; position: relative; left: 23%">
+      <button class="btnConfirm" onclick="closePopup()">Cancel</button>
+      <button class="btnConfirm" onclick="closePopup()">
+        <a style="text-decoration: none; color: white;" href="register.html">Let's go</a>
+        </button>
+    </div>
+  </div>
+  <!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
+  <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
+  <script src="script.js"></script>
+</body>
 </html>
